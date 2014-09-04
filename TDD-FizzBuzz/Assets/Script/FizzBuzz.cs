@@ -1,8 +1,28 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿public enum GameState
+{
+	Starting,
+	Playing,
+}
 
 public class FizzBuzz
 {
+	public GameState State
+	{
+		get;
+		private set;
+	}
+
+	public int RoundCount 
+	{
+		get;
+		private set;
+	}
+
+	public void Start (int roundCount)
+	{
+		RoundCount = roundCount;
+	}
+
 	public string Convert (int number)
 	{
 		if (number % 3 == 0 && number % 5 == 0)

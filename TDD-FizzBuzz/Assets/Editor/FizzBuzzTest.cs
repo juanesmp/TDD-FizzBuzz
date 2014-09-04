@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-using System.Collections;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 [TestFixture]
 public class FizzBuzzTest 
@@ -35,6 +33,19 @@ public class FizzBuzzTest
 	public void FizzBuzzNumberReturnsFizzBuzz()
 	{
 		AssertFizzBuzz(15, "FizzBuzz");
+	}
+	
+	[Test]
+	public void StoresRoundCount()
+	{
+		fizzBuzz.Start (10);
+		Assert.AreEqual (10, fizzBuzz.RoundCount);
+	}
+
+	[Test]
+	public void GameStateIsStartingBeforeStart()
+	{
+		Assert.AreEqual (GameState.Starting, fizzBuzz.State);
 	}
 
 	private void AssertFizzBuzz(int number, string expectedResult)
