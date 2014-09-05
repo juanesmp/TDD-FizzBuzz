@@ -59,7 +59,7 @@ public class FizzBuzzUI : MonoBehaviour
 	private void DrawResponseButton(Rect rect, string response)
 	{
 		if (GUI.Button (rect, response))
-			fizzBuzz.AdvanceToNextRound ();
+			fizzBuzz.AdvanceToNextRound ("");
 	}
 
 	private void DrawFinishScreen ()
