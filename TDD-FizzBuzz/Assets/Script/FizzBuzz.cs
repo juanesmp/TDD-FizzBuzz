@@ -2,6 +2,7 @@
 {
 	Starting,
 	Playing,
+	Finished
 }
 
 public class FizzBuzz
@@ -18,9 +19,25 @@ public class FizzBuzz
 		private set;
 	}
 
+	public int Round 
+	{
+		get;
+		private set;
+	}
+
 	public void Start (int roundCount)
 	{
 		RoundCount = roundCount;
+		Round = 1;
+		State = GameState.Playing;
+	}
+
+	public void AdvanceToNextRound ()
+	{
+		if (Round < RoundCount)
+			Round++;
+		else
+			State = GameState.Finished;
 	}
 
 	public string Convert (int number)
