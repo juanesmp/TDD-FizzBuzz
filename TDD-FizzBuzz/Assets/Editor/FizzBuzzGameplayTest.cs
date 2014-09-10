@@ -9,7 +9,7 @@ public class FizzBuzzGameplayTest
 	public void Setup ()
 	{
 		fizzBuzz = new FizzBuzz();
-		fizzBuzz.Start (10);
+		fizzBuzz.ChooseRoundCount (10);
 	}
 
 	[Test]

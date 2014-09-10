@@ -1,12 +1,21 @@
 ﻿public enum GameState
 {
-	Starting,
+	ChoosingRuleset,
+	ChoosingRoundCount,
 	Playing,
 	Finished
 }
 
+public enum Ruleset
+{
+	FizzBuzz,
+	FizzBuzzPop,
+}
+
 public class FizzBuzz
 {
+	private Ruleset ruleset;
+
 	public GameState State
 	{
 		get;
@@ -31,7 +40,13 @@ public class FizzBuzz
 		private set;
 	}
 
-	public void Start (int roundCount)
+	public void ChooseRuleset (Ruleset ruleset)
+	{
+		this.ruleset = ruleset;
+		State = GameState.ChoosingRoundCount;
+	}
+
+	public void ChooseRoundCount (int roundCount)
 	{
 		RoundCount = roundCount;
 		Round = 1;
@@ -56,7 +71,7 @@ public class FizzBuzz
 			result += "Fizz";
 		if (number % 5 == 0)
 			result += "Buzz";
-		if (number % 7 == 0)
+		if (number % 7 == 0 && ruleset == Ruleset.FizzBuzzPop)
 			result += "Pop";
 		if (result == string.Empty)
 			result = number.ToString ();

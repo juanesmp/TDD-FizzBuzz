@@ -12,23 +12,30 @@ public class FizzBuzzStateTest
 	}
 
 	[Test]
-	public void GameStateIsStartingBeforeStart()
+	public void GameStateIsChoosingRulesetAtStart()
 	{
-		Assert.AreEqual (GameState.Starting, fizzBuzz.State);
+		Assert.AreEqual (GameState.ChoosingRuleset, fizzBuzz.State);
 	}
-	
+
+	[Test]
+	public void GameStateIsChoosingRoundCountAfterChoosingRuleset()
+	{
+		fizzBuzz.ChooseRuleset (Ruleset.FizzBuzz);
+		Assert.AreEqual (GameState.ChoosingRoundCount, fizzBuzz.State);
+	}
+
+	[Test]
+	public void GameStateIsPlayingAfterChoosingRoundCount()
+	{
+		fizzBuzz.ChooseRoundCount (10);
+		Assert.AreEqual (GameState.Playing, fizzBuzz.State);
+	}
+
 	[Test]
 	public void GameStateIsFinishedAfterLastRound()
 	{
-		fizzBuzz.Start (1);
+		fizzBuzz.ChooseRoundCount (1);
 		fizzBuzz.AdvanceToNextRound ("");
 		Assert.AreEqual (GameState.Finished, fizzBuzz.State);
-	}
-	
-	[Test]
-	public void GameStateIsPlayingAfterStart()
-	{
-		fizzBuzz.Start (10);
-		Assert.AreEqual (GameState.Playing, fizzBuzz.State);
 	}
 }

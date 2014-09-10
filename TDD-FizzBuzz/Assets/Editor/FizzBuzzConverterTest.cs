@@ -9,56 +9,75 @@ public class FizzBuzzConverterTest
 	public void Setup ()
 	{
 		fizzBuzz = new FizzBuzz();
-		fizzBuzz.Start (1000);
+		fizzBuzz.ChooseRoundCount (1000);
 	}
 
 	[Test]
-	public void AnsweringFizzIncreasesScore()
+	public void AnsweringFizzIncreasesScore([Values(Ruleset.FizzBuzz, Ruleset.FizzBuzzPop)] Ruleset ruleset)
 	{
-		AssertScore(6, "Fizz");
+		AssertScore(6, "Fizz", ruleset);
 	}
 
 	[Test]
-	public void AnsweringBuzzIncresesScore()
+	public void AnsweringBuzzIncresesScore([Values(Ruleset.FizzBuzz, Ruleset.FizzBuzzPop)] Ruleset ruleset)
 	{
-		AssertScore(20, "Buzz");
+		AssertScore(20, "Buzz", ruleset);
 	}
 	
 	[Test]
 	public void AnsweringPopIncresesScore()
 	{
-		AssertScore(7, "Pop");
+		AssertScore(7, "Pop", Ruleset.FizzBuzzPop);
 	}
 
 	[Test]
-	public void AnsweringFizzBuzzIncresesScore()
+	public void AnsweringPopDoesntIncresesScore()
 	{
-		AssertScore(15, "FizzBuzz");
+		AssertDontScore(7, "Pop", Ruleset.FizzBuzz);
+	}
+
+	[Test]
+	public void AnsweringFizzBuzzIncresesScore([Values(Ruleset.FizzBuzz, Ruleset.FizzBuzzPop)] Ruleset ruleset)
+	{
+		AssertScore(15, "FizzBuzz", ruleset);
 	}
 
 	[Test]
 	public void AnsweringFizzPopIncresesScore()
 	{
-		AssertScore(21, "FizzPop");
+		AssertScore(21, "FizzPop", Ruleset.FizzBuzzPop);
 	}
 	
 	[Test]
 	public void AnsweringBuzzPopIncresesScore()
 	{
-		AssertScore(35, "BuzzPop");
+		AssertScore(35, "BuzzPop", Ruleset.FizzBuzzPop);
 	}
 	
 	[Test]
 	public void AnsweringFizzBuzzPopIncresesScore()
 	{
-		AssertScore(105, "FizzBuzzPop");
+		AssertScore(105, "FizzBuzzPop", Ruleset.FizzBuzzPop);
 	}
 
-	private void AssertScore(int number, string answer)
+	private void AssertScore(int number, string answer, Ruleset ruleset)
 	{
+		AssertScore (number, answer, ruleset, true);
+	}
+
+	private void AssertDontScore (int number, string answer, Ruleset ruleset)
+	{
+		AssertScore (number, answer, ruleset, false);
+	}
+
+	private void AssertScore(int number, string answer, Ruleset ruleset, bool score)
+	{
+		fizzBuzz.ChooseRuleset(ruleset);
+		
 		for (int i = 1; i < number; i++)
 			fizzBuzz.AdvanceToNextRound ("");
+		
 		fizzBuzz.AdvanceToNextRound (answer);
-		Assert.AreEqual (1, fizzBuzz.Score);
+		Assert.AreEqual (score ? 1 :  0, fizzBuzz.Score);
 	}
 }

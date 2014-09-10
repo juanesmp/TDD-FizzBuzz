@@ -10,7 +10,7 @@ public class FizzBuzzUI : MonoBehaviour
 	{
 		switch (fizzBuzz.State)
 		{
-		case GameState.Starting:
+		case GameState.ChoosingRoundCount:
 			DrawWelcomeScreen ();
 			break;
 		case GameState.Playing:
@@ -34,7 +34,7 @@ public class FizzBuzzUI : MonoBehaviour
 		if (GUI.Button (buttonRect, "Empezar"))
 		{
 			int rounds = int.Parse (roundsCountText);
-			fizzBuzz.Start (rounds);
+			fizzBuzz.ChooseRoundCount (rounds);
 		}
 	}
 
