@@ -51,13 +51,15 @@ public class FizzBuzz
 
 	private string Convert (int number)
 	{
-		if (number % 3 == 0 && number % 5 == 0)
-			return "FizzBuzz";
-		else if (number % 3 == 0)
-			return "Fizz";
-		else if (number % 5 == 0)
-			return "Buzz";
-		else
-			return number.ToString ();
+		string result = string.Empty;
+		if (number % 3 == 0)
+			result += "Fizz";
+		if (number % 5 == 0)
+			result += "Buzz";
+		if (number % 7 == 0)
+			result += "Pop";
+		if (result == string.Empty)
+			result = number.ToString ();
+		return result;
 	}
 }

@@ -41,9 +41,12 @@ public class FizzBuzzUI : MonoBehaviour
 	private void DrawGameScreen ()
 	{
 		Rect labelRect = new Rect(10, 10, 300, 40);
-		GUI.Label (labelRect, fizzBuzz.Round.ToString ());
+		GUI.Label (labelRect, "Ronda = " + fizzBuzz.Round.ToString ());
 
-		Rect buttonRect = new Rect(10, 50, 100, 40);
+		labelRect.y += labelRect.height;
+		GUI.Label (labelRect, "Puntaje = " + fizzBuzz.Score);
+
+		Rect buttonRect = new Rect(10, labelRect.y + labelRect.height, 100, 40);
 		DrawResponseButton (buttonRect, fizzBuzz.Round.ToString ());
 
 		buttonRect.y += buttonRect.height + 10;
@@ -53,18 +56,33 @@ public class FizzBuzzUI : MonoBehaviour
 		DrawResponseButton (buttonRect, "Buzz");
 		
 		buttonRect.y += buttonRect.height + 10;
+		DrawResponseButton (buttonRect, "Pop");
+
+		buttonRect.y += buttonRect.height + 10;
 		DrawResponseButton (buttonRect, "FizzBuzz");
+	
+		buttonRect.y += buttonRect.height + 10;
+		DrawResponseButton (buttonRect, "FizzPop");
+	
+		buttonRect.y += buttonRect.height + 10;
+		DrawResponseButton (buttonRect, "BuzzPop");
+		
+		buttonRect.y += buttonRect.height + 10;
+		DrawResponseButton (buttonRect, "FizzBuzzPop");
 	}
 
 	private void DrawResponseButton(Rect rect, string response)
 	{
 		if (GUI.Button (rect, response))
-			fizzBuzz.AdvanceToNextRound ("");
+			fizzBuzz.AdvanceToNextRound (response);
 	}
 
 	private void DrawFinishScreen ()
 	{
 		Rect labelRect = new Rect(10, 10, 300, 40);
 		GUI.Label (labelRect, "Fin");
+
+		labelRect.y += labelRect.height;
+		GUI.Label (labelRect, "Puntaje = " + fizzBuzz.Score);
 	}
 }

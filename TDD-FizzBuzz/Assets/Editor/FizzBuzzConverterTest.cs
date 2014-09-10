@@ -9,7 +9,7 @@ public class FizzBuzzConverterTest
 	public void Setup ()
 	{
 		fizzBuzz = new FizzBuzz();
-		fizzBuzz.Start (100);
+		fizzBuzz.Start (1000);
 	}
 
 	[Test]
@@ -23,11 +23,35 @@ public class FizzBuzzConverterTest
 	{
 		AssertScore(20, "Buzz");
 	}
+	
+	[Test]
+	public void AnsweringPopIncresesScore()
+	{
+		AssertScore(7, "Pop");
+	}
 
 	[Test]
 	public void AnsweringFizzBuzzIncresesScore()
 	{
 		AssertScore(15, "FizzBuzz");
+	}
+
+	[Test]
+	public void AnsweringFizzPopIncresesScore()
+	{
+		AssertScore(21, "FizzPop");
+	}
+	
+	[Test]
+	public void AnsweringBuzzPopIncresesScore()
+	{
+		AssertScore(35, "BuzzPop");
+	}
+	
+	[Test]
+	public void AnsweringFizzBuzzPopIncresesScore()
+	{
+		AssertScore(105, "FizzBuzzPop");
 	}
 
 	private void AssertScore(int number, string answer)
