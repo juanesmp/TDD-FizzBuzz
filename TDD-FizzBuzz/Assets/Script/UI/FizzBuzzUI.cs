@@ -10,8 +10,11 @@ public class FizzBuzzUI : MonoBehaviour
 	{
 		switch (fizzBuzz.State)
 		{
+		case GameState.ChoosingRuleset:
+			DrawRulesetScreen();
+			break;
 		case GameState.ChoosingRoundCount:
-			DrawWelcomeScreen ();
+			DrawRoundScreen ();
 			break;
 		case GameState.Playing:
 			DrawGameScreen();
@@ -22,7 +25,21 @@ public class FizzBuzzUI : MonoBehaviour
 		}
 	}
 
-	private void DrawWelcomeScreen ()
+	private void DrawRulesetScreen ()
+	{
+		Rect labelRect = new Rect(10, 10, 300, 40);
+		GUI.Label (labelRect, "Seleccione las reglas");
+
+		Rect buttonRect = new Rect(10, labelRect.y + labelRect.height, 100, 40);
+		if (GUI.Button (buttonRect, "FizzBuzz"))
+			fizzBuzz.ChooseRuleset (Ruleset.FizzBuzz);
+		
+		buttonRect.y += buttonRect.height + 10;
+		if (GUI.Button (buttonRect, "FizzBuzzPop"))
+			fizzBuzz.ChooseRuleset (Ruleset.FizzBuzzPop);
+	}
+
+	private void DrawRoundScreen ()
 	{
 		Rect labelRect = new Rect(10, 10, 300, 40);
 		GUI.Label (labelRect, "Escriba el número de rondas");
@@ -46,27 +63,36 @@ public class FizzBuzzUI : MonoBehaviour
 		labelRect.y += labelRect.height;
 		GUI.Label (labelRect, "Puntaje = " + fizzBuzz.Score);
 
-		Rect buttonRect = new Rect(10, labelRect.y + labelRect.height, 100, 40);
+		Rect buttonRect = new Rect (10, labelRect.y + labelRect.height, 100, 40);
+		DrawCommonAnswerButtons (ref buttonRect);
+		DrawPopAnswerButtons (ref buttonRect);
+	}
+
+	private void DrawCommonAnswerButtons (ref Rect buttonRect)
+	{
 		DrawResponseButton (buttonRect, fizzBuzz.Round.ToString ());
 
 		buttonRect.y += buttonRect.height + 10;
 		DrawResponseButton (buttonRect, "Fizz");
-		
+
 		buttonRect.y += buttonRect.height + 10;
 		DrawResponseButton (buttonRect, "Buzz");
-		
+
+		buttonRect.y += buttonRect.height + 10;
+		DrawResponseButton (buttonRect, "FizzBuzz");
+	}
+
+	private void DrawPopAnswerButtons (ref Rect buttonRect)
+	{
 		buttonRect.y += buttonRect.height + 10;
 		DrawResponseButton (buttonRect, "Pop");
 
 		buttonRect.y += buttonRect.height + 10;
-		DrawResponseButton (buttonRect, "FizzBuzz");
-	
-		buttonRect.y += buttonRect.height + 10;
 		DrawResponseButton (buttonRect, "FizzPop");
-	
+
 		buttonRect.y += buttonRect.height + 10;
 		DrawResponseButton (buttonRect, "BuzzPop");
-		
+
 		buttonRect.y += buttonRect.height + 10;
 		DrawResponseButton (buttonRect, "FizzBuzzPop");
 	}
